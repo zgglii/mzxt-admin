@@ -1,0 +1,70 @@
+<template>
+  <PageWrapper contentBackground contentClass="p-4">
+    <BasicForm @register="registerForm" />
+  </PageWrapper>
+</template>
+
+<script>
+import { defineComponent } from 'vue';
+import { BasicForm, useForm } from '/@/components/Form/index';
+import { PageWrapper } from '/@/components/Page';
+import { dataGetRender, dataSetRender } from '/@/utils/common';
+import { useMessage } from '/@/hooks/web/useMessage';
+import { shareList, shareEdit } from '/@/api/demo/share';
+import { dataFormSchema } from './data';
+export default defineComponent({
+  components: { PageWrapper, BasicForm },
+  setup() {
+    const { createMessage } = useMessage();
+
+    const [registerForm, { setFieldsValue, validate, setProps }] = useForm({
+      labelWidth: 140,
+      baseColProps: { span: 18 },
+      schemas: dataFormSchema,
+      showResetButton: false,
+      submitFunc: handleSubmit,
+      actionColOptions: {
+        span: 24,
+        style: { textAlign: 'center' },
+      },
+      submitButtonOptions: {
+        text: '提交',
+      },
+    });
+
+    let imgField = ['topImg', 'shareImg', 'scopeImg'];
+    let id = 0;
+    shareList().then((res) => {
+      if (res && res.length) {
+        let data = dataGetRender(res[0], imgField);
+        setFieldsValue(data);
+        id = data.id;
+      }
+    });
+
+    async function handleSubmit() {
+      try {
+        const values = await validate();
+        setProps({
+          submitButtonOptions: {
+            loading: true,
+          },
+        });
+        let data = dataSetRender(values, imgField);
+        if (id) data.id = id;
+        shareEdit(data).then((res) => {
+          setProps({
+            submitButtonOptions: {
+              loading: false,
+            },
+          });
+          id = res;
+          createMessage.success('提交成功！');
+        });
+      } catch (error) {}
+    }
+
+    return { registerForm };
+  },
+});
+</script>
