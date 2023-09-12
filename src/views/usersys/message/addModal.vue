@@ -15,7 +15,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { dataGetRender, dataSetRender } from '/@/utils/common';
   import { editFormSchema } from './data';
-  import { strategyEdit } from '/@/api/demo/home';
+  import { newsEdit } from '/@/api/demo/home';
 
   export default defineComponent({
     name: 'AddModal',
@@ -45,7 +45,7 @@
           setFieldsValue(data2);
         }
       });
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增思维图' : '编辑思维图'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增系统消息' : '编辑系统消息'));
 
       async function handleSubmit() {
         try {
@@ -54,8 +54,7 @@
           setModalProps({ confirmLoading: true });
           // TODO custom api
           let data = dataSetRender(values, ['imgUrl']);
-          data.type = 4;
-          strategyEdit(data).then(() => {
+          newsEdit(data).then(() => {
             closeModal();
             emit('success');
           });

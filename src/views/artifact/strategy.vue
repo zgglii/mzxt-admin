@@ -41,7 +41,7 @@
   import { Image } from 'ant-design-vue';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { informationDel, informationList } from '/@/api/demo/home';
+  import { strategyDel, strategyList } from '/@/api/demo/home';
   import { PageWrapper } from '/@/components/Page';
 
   import { useModal } from '/@/components/Modal';
@@ -59,7 +59,7 @@
       // 初始化table
       const [registerTable, { reload }] = useTable({
         title: '思维图管理',
-        api: informationList,
+        api: strategyList,
         rowKey: 'id',
         columns,
         formConfig: {
@@ -76,9 +76,6 @@
           title: '操作',
           dataIndex: 'action',
           slots: { customRender: 'action' },
-        },
-        beforeFetch: (obj) => {
-          obj.type = 4;
         },
       });
       function handleCreate() {
@@ -105,7 +102,7 @@
 
       // 删除
       function handleDelete(record: Recordable) {
-        informationDel({ id: record.id }).then(() => {
+        strategyDel({ id: record.id }).then(() => {
           createMessage.success(`删除成功`);
           reload();
         });

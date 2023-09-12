@@ -106,7 +106,7 @@
 
       // 删除
       function handleDelete(record: Recordable) {
-        faucetGrossDel({ id: record.id }).then(() => {
+        faucetGrossDel({ ids: [record.id] }).then(() => {
           createMessage.success(`删除成功`);
           reload();
         });
@@ -119,8 +119,10 @@
           createMessage.warning('请选择数据');
         } else {
           let ids = list.map((item) => item.id);
-          console.log(ids);
-          reload();
+          faucetGrossDel({ ids: ids }).then(() => {
+            createMessage.success(`删除成功`);
+            reload();
+          });
         }
       }
 

@@ -1,13 +1,10 @@
 <template>
   <div>
     <BasicTable @register="registerTable" :searchInfo="searchInfo">
-      <template #demoType="{ record }">
-        {{ record.demoType == 0 ? '正常' : '演示' }}
-      </template>
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate">新增公告</a-button>
+        <a-button type="primary" @click="handleCreate">新增系统消息</a-button>
       </template>
-      <template #linkUrl="{ record }">
+      <template #imgUrlTpl="{ record }">
         <Image :width="200" :src="record.imgUrl" />
       </template>
       <template #action="{ record }">
@@ -44,7 +41,7 @@
   import { Image } from 'ant-design-vue';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { noticList, noticDet } from '/@/api/demo/home';
+  import { newsDel, newsList } from '/@/api/demo/home';
   import { PageWrapper } from '/@/components/Page';
 
   import { useModal } from '/@/components/Modal';
@@ -61,8 +58,8 @@
       const searchInfo = reactive<Recordable>({});
       // 初始化table
       const [registerTable, { reload }] = useTable({
-        title: '轮播图管理',
-        api: noticList,
+        title: '系统消息管理',
+        api: newsList,
         rowKey: 'id',
         columns,
         formConfig: {
@@ -70,7 +67,7 @@
           schemas: searchFormSchema,
           autoSubmitOnEnter: true,
         },
-        // useSearchForm: true,
+        useSearchForm: true,
         showTableSetting: false,
         showIndexColumn: false,
         bordered: true,
@@ -80,15 +77,8 @@
           dataIndex: 'action',
           slots: { customRender: 'action' },
         },
-        handleSearchInfoFn: (obj) => {
-          return { record: obj };
-        },
       });
-      // 是否上传新的轮播图,用来切换的
-      // const isEdit = ref(true);
       function handleCreate() {
-        // 如果isEdit为false,则隐藏表单
-        // isEdit.value = false;
         nextTick(() => {
           openModal(true, {
             isUpdate: false,
@@ -112,32 +102,23 @@
 
       // 删除
       function handleDelete(record: Recordable) {
-        noticDet({ id: record.id }).then(() => {
+        newsDel({ id: record.id }).then(() => {
           createMessage.success(`删除成功`);
           reload();
         });
       }
 
       function handleSuccess() {
-        // isEdit.value = true;
-        // createMessage.success(`上传成功`);
-        reload();
-      }
-
-      function handleSelect(deptId = '') {
-        searchInfo.deptId = deptId;
         reload();
       }
 
       return {
-        // isEdit,
         registerTable,
         registerModal,
         handleCreate,
         handleEdit,
         handleDelete,
         handleSuccess,
-        handleSelect,
         searchInfo,
       };
     },

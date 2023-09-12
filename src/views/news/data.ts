@@ -1,11 +1,6 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
-const typeData = [
-  { label: '明知早餐', value: 1 },
-  { label: '明知晚餐', value: 2 },
-  { label: '好股研报', value: 3 },
-];
 const statusData = [
   { label: '已启用', value: '1' },
   { label: '已禁用', value: '2' },
@@ -14,14 +9,6 @@ const statusData = [
  * @description tabel 显示字段
  */
 export const columns: BasicColumn[] = [
-  {
-    title: '类型',
-    dataIndex: 'type',
-    customRender: ({ record }) => {
-      return typeData[typeData.findIndex((item) => item.value == record.type)]?.label;
-    },
-    width: 130,
-  },
   {
     title: '封面',
     dataIndex: 'imgUrl',
@@ -53,15 +40,6 @@ export const columns: BasicColumn[] = [
  */
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'type',
-    label: '类型',
-    component: 'Select',
-    componentProps: {
-      options: typeData,
-    },
-    colProps: { span: 6 },
-  },
-  {
     field: 'title',
     label: '标题',
     component: 'Input',
@@ -78,15 +56,6 @@ export const searchFormSchema: FormSchema[] = [
  * @description 修改或添加轮播图
  */
 export const editFormSchema: FormSchema[] = [
-  {
-    field: 'type',
-    label: '类型',
-    component: 'Select',
-    componentProps: {
-      options: typeData,
-    },
-    required: true,
-  },
   {
     field: 'title',
     label: '标题',

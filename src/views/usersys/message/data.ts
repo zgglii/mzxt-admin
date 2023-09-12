@@ -2,9 +2,8 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
 const typeData = [
-  { label: '明知早餐', value: 1 },
-  { label: '明知晚餐', value: 2 },
-  { label: '好股研报', value: 3 },
+  { label: '系统消息', value: 1 },
+  { label: '明知学堂', value: 2 },
 ];
 const statusData = [
   { label: '已启用', value: '1' },
@@ -99,11 +98,10 @@ export const editFormSchema: FormSchema[] = [
     component: 'FastUpload',
     componentProps: () => {
       return {
-        imgSizeTips: '图片尺寸建议：320*180',
+        imgSizeTips: '图片尺寸建议：690*340',
       };
     },
     defaultValue: '',
-    required: true,
   },
   {
     field: 'status',
@@ -121,7 +119,7 @@ export const editFormSchema: FormSchema[] = [
   {
     label: '内容',
     field: 'content',
-    component: 'Editer',
+    component: 'InputTextArea',
     required: true,
     colProps: {
       span: 24,

@@ -68,7 +68,7 @@ export const editFormSchema: FormSchema[] = [
     component: 'FastUpload',
     componentProps: () => {
       return {
-        imgSizeTips: '图片尺寸建议：320*180',
+        imgSizeTips: '图片尺寸建议：150*150',
       };
     },
     defaultValue: '',
@@ -86,6 +86,32 @@ export const editFormSchema: FormSchema[] = [
     },
     defaultValue: statusData[0].value,
     required: true,
+  },
+  {
+    label: '内容',
+    field: 'content',
+    component: 'Editer',
+    required: true,
+    colProps: {
+      span: 24,
+    },
+  },
+];
+
+/**
+ * @description 介绍
+ */
+export const infoFormSchema: FormSchema[] = [
+  {
+    field: 'title',
+    label: '标题',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'subTitle',
+    label: '副标题',
+    component: 'Input',
   },
   {
     label: '内容',

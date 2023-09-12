@@ -13,9 +13,8 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { dataGetRender, dataSetRender } from '/@/utils/common';
   import { editFormSchema } from './data';
-  import { strategyEdit } from '/@/api/demo/home';
+  import { homeConfigEdit } from '/@/api/demo/home';
 
   export default defineComponent({
     name: 'AddModal',
@@ -41,11 +40,11 @@
         isUpdate.value = !!data?.isUpdate;
         if (unref(isUpdate)) {
           id = data.record.id;
-          let data2 = dataGetRender(data.record, ['imgUrl']);
+          let data2 = data.record;
           setFieldsValue(data2);
         }
       });
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增思维图' : '编辑思维图'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增公告' : '编辑公告'));
 
       async function handleSubmit() {
         try {
@@ -53,9 +52,8 @@
           if (id) values.id = id;
           setModalProps({ confirmLoading: true });
           // TODO custom api
-          let data = dataSetRender(values, ['imgUrl']);
-          data.type = 4;
-          strategyEdit(data).then(() => {
+          let data = values;
+          homeConfigEdit(data).then(() => {
             closeModal();
             emit('success');
           });
