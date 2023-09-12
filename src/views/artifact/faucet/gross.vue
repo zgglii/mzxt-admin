@@ -119,7 +119,7 @@
           createMessage.warning('请选择数据');
         } else {
           let ids = list.map((item) => item.id);
-          faucetGrossDel({ ids: ids }).then(() => {
+          faucetGrossDel(ids).then(() => {
             createMessage.success(`删除成功`);
             reload();
           });

@@ -119,7 +119,7 @@
           createMessage.warning('请选择数据');
         } else {
           let ids = list.map((item) => item.id);
-          faucetDifferencesDel({ ids: ids }).then(() => {
+          faucetDifferencesDel(ids).then(() => {
             createMessage.success(`删除成功`);
             reload();
           });

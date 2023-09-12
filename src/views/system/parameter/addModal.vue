@@ -13,9 +13,8 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  // import { dataGetRender, dataSetRender } from "/@/utils/common";
   import { editFormSchema } from './data';
-  import { informationEdit } from '/@/api/demo/home';
+  import { paramConfigEdit } from '/@/api/demo/home';
 
   export default defineComponent({
     name: 'AddModal',
@@ -45,7 +44,7 @@
           setFieldsValue(data2);
         }
       });
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增联系电话' : '编辑联系电话'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增公告' : '编辑公告'));
 
       async function handleSubmit() {
         try {
@@ -53,10 +52,8 @@
           if (id) values.id = id;
           setModalProps({ confirmLoading: true });
           // TODO custom api
-          let data2 = values;
-          data2.type = 3;
-
-          informationEdit(data2).then(() => {
+          let data = values;
+          paramConfigEdit(data).then(() => {
             closeModal();
             emit('success');
           });

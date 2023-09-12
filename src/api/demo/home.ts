@@ -73,11 +73,17 @@ enum Api {
   newsEdit = '/news/edit',
   newsDel = '/news/del',
   // 首页配置 *
-  homeConfigList = '/homeConfig/web/page',
+  homeConfigList = '/homeConfig/page',
   homeConfigEdit = '/homeConfig/edit',
   // 文章 *
   articleList = '/article/list',
   articleEdit = '/article/edit',
+  // 参数配置 *
+  paramConfigList = '/paramConfig/page',
+  paramConfigEdit = '/paramConfig/edit',
+  // 神器定价 *
+  artifactPriceList = '/artifactPrice/page',
+  artifactPriceEdit = '/artifactPrice/edit',
 }
 
 export const informationList = (params) => defHttp.get({ url: Api.informationList, params });
@@ -123,6 +129,12 @@ export const homeConfigEdit = (params) => defHttp.post({ url: Api.homeConfigEdit
 
 export const articleList = (params) => defHttp.get({ url: Api.articleList, params });
 export const articleEdit = (params) => defHttp.post({ url: Api.articleEdit, params });
+
+export const paramConfigList = (params) => defHttp.get({ url: Api.paramConfigList, params });
+export const paramConfigEdit = (params) => defHttp.post({ url: Api.paramConfigEdit, params });
+
+export const artifactPriceList = (params) => defHttp.get({ url: Api.artifactPriceList, params });
+export const artifactPriceEdit = (params) => defHttp.post({ url: Api.artifactPriceEdit, params });
 
 // 套餐配置删除
 export const comMeadDel = (params) => defHttp.get({ url: Api.comMeadDel, params });
