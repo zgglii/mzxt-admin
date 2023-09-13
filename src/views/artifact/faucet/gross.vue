@@ -59,7 +59,7 @@
       const searchInfo = reactive<Recordable>({});
       // 初始化table
       const [registerTable, { reload, getSelectRows }] = useTable({
-        title: '龙头板块总强度管理',
+        title: '热点板块总强度管理',
         api: faucetGrossList,
         rowKey: 'id',
         columns,

@@ -58,7 +58,7 @@
       });
 
       const getTitle = computed(() =>
-        !unref(isUpdate) ? '新增龙头板块总强度' : '编辑龙头板块总强度',
+        !unref(isUpdate) ? '新增热点板块总强度' : '编辑热点板块总强度',
       );
 
       const fileChange = (e) => {

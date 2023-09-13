@@ -21,12 +21,12 @@ enum Api {
   courseList = '/course/page',
   courseEdit = '/course/edit',
   courseDel = '/course/del',
-  // 龙头总强度 *
+  // 热点总强度 *
   faucetGrossList = '/faucetGross/page',
   faucetGrossImport = '/faucetGross/import',
   faucetGrossEdit = '/faucetGross/edit',
   faucetGrossDel = '/faucetGross/batch/del',
-  // 龙头异动 *
+  // 热点异动 *
   faucetDifferencesList = '/faucetDifference/page',
   faucetDifferencesImport = '/faucetDifference/import',
   faucetDifferencesEdit = '/faucetDifference/edit',

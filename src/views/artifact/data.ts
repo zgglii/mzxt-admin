@@ -68,7 +68,7 @@ export const editFormSchema: FormSchema[] = [
     component: 'FastUpload',
     componentProps: () => {
       return {
-        imgSizeTips: '图片尺寸建议：150*150',
+        imgSizeTips: '图片尺寸建议：600*338',
       };
     },
     defaultValue: '',
@@ -89,7 +89,7 @@ export const editFormSchema: FormSchema[] = [
   },
   {
     label: '内容',
-    field: 'content',
+    field: 'remark',
     component: 'Editer',
     required: true,
     colProps: {

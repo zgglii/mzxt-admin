@@ -71,7 +71,7 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增龙头板块异动' : '编辑龙头板块异动'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增热点板块异动' : '编辑热点板块异动'));
 
       const fileChange = (e) => {
         file = e.target.files[0];

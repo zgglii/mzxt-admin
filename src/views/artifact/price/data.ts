@@ -2,7 +2,7 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
 const typeData = [
-  { label: '龙头板块', value: 1 },
+  { label: '热点板块', value: 1 },
   { label: '伯克希尔投资策略', value: 2 },
 ];
 /**
