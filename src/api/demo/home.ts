@@ -51,6 +51,9 @@ enum Api {
   // 神器定价 *
   artifactPriceList = '/artifactPrice/page',
   artifactPriceEdit = '/artifactPrice/edit',
+  // 订单 *
+  indentList = '/indent/page',
+  indentRefund = '/indent/apply/refund',
 }
 
 export const swiperList = (params) => defHttp.get({ url: Api.swiperList, params });
@@ -106,3 +109,6 @@ export const paramConfigEdit = (params) => defHttp.post({ url: Api.paramConfigEd
 
 export const artifactPriceList = (params) => defHttp.get({ url: Api.artifactPriceList, params });
 export const artifactPriceEdit = (params) => defHttp.post({ url: Api.artifactPriceEdit, params });
+
+export const indentList = (params) => defHttp.get({ url: Api.indentList, params });
+export const indentRefund = (params) => defHttp.post({ url: Api.indentRefund, params });

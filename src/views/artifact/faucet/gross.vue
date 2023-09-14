@@ -37,7 +37,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, nextTick } from 'vue';
+  import { defineComponent, reactive, nextTick, createVNode } from 'vue';
 
   import { Image } from 'ant-design-vue';
   import { useMessage } from '/@/hooks/web/useMessage';
@@ -47,6 +47,8 @@
 
   import { useModal } from '/@/components/Modal';
   import AddModal from './grossAddModal.vue';
+  import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+  import { Modal } from 'ant-design-vue';
 
   import { columns, searchFormSchema } from './grossData';
 
@@ -118,10 +120,19 @@
         if (list.length == 0) {
           createMessage.warning('请选择数据');
         } else {
-          let ids = list.map((item) => item.id);
-          faucetGrossDel(ids).then(() => {
-            createMessage.success(`删除成功`);
-            reload();
+          Modal.confirm({
+            title: '提示',
+            icon: createVNode(ExclamationCircleOutlined),
+            content: '确定删除吗？',
+            okText: '确认',
+            cancelText: '取消',
+            onOk() {
+              let ids = list.map((item) => item.id);
+              faucetGrossDel(ids).then(() => {
+                createMessage.success(`删除成功`);
+                reload();
+              });
+            },
           });
         }
       }
