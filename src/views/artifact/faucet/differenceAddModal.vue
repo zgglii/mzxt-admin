@@ -86,6 +86,10 @@
             setModalProps({ confirmLoading: true });
             // TODO custom api
             let data = dataSetRender(values, ['imgUrl']);
+            if (values.imgUrl && !data.imgUrl) {
+              createMessage.warning(`图片上传中`);
+              return false;
+            }
             faucetDifferencesEdit(data).then(() => {
               closeModal();
               emit('success');

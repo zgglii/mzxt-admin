@@ -16,12 +16,14 @@
   import { dataGetRender, dataSetRender } from '/@/utils/common';
   import { editFormSchema } from './data';
   import { strategyEdit } from '/@/api/demo/home';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'AddModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
+      const { createMessage } = useMessage();
       const isUpdate = ref(true);
       let id = 0;
 
@@ -54,6 +56,10 @@
           setModalProps({ confirmLoading: true });
           // TODO custom api
           let data = dataSetRender(values, ['imgUrl']);
+          if (values.imgUrl && !data.imgUrl) {
+            createMessage.warning(`图片上传中`);
+            return false;
+          }
           data.type = 4;
           strategyEdit(data).then(() => {
             closeModal();
