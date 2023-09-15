@@ -75,6 +75,12 @@
           dataIndex: 'action',
           slots: { customRender: 'action' },
         },
+        handleSearchInfoFn: (obj) => {
+          if (obj.startTime && obj.endTime) {
+            obj.startTime = obj.startTime.slice(0, 10) + ' 00:00:00';
+            obj.endTime = obj.endTime.slice(0, 10) + ' 23:59:59';
+          }
+        },
       });
       function handleCreate() {
         nextTick(() => {

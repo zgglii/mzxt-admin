@@ -67,7 +67,10 @@
           slots: { customRender: 'action' },
         },
         handleSearchInfoFn: (obj) => {
-          return { record: obj };
+          if (obj.startTime && obj.endTime) {
+            obj.startTime = obj.startTime.slice(0, 10) + ' 00:00:00';
+            obj.endTime = obj.endTime.slice(0, 10) + ' 23:59:59';
+          }
         },
       });
       // 是否上传新的轮播图,用来切换的
