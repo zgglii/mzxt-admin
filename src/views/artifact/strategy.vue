@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate">新增思维图</a-button>
+        <a-button type="primary" @click="handleCreate">新增投资策略</a-button>
       </template>
       <template #imgUrlTpl="{ record }">
         <Image :width="200" :src="record.imgUrl" />
@@ -19,14 +19,7 @@
               icon: 'ant-design:delete-outlined',
               color: 'error',
               tooltip: '删除',
-              popConfirm: {
-                title: '是否确认删除',
-                placement: 'left',
-                confirm: handleDelete.bind(null, record),
-              },
-              ifShow: () => {
-                return record.crowdFundingStatus != 0;
-              },
+              onClick: handleDelete.bind(null, record),
             },
           ]"
         />
@@ -36,7 +29,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, nextTick } from 'vue';
+  import { defineComponent, reactive, nextTick, createVNode } from 'vue';
 
   import { Image } from 'ant-design-vue';
   import { useMessage } from '/@/hooks/web/useMessage';
@@ -46,6 +39,8 @@
 
   import { useModal } from '/@/components/Modal';
   import AddModal from './addModal.vue';
+  import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+  import { Modal } from 'ant-design-vue';
 
   import { columns, searchFormSchema } from './data';
 
@@ -58,7 +53,7 @@
       const searchInfo = reactive<Recordable>({});
       // 初始化table
       const [registerTable, { reload }] = useTable({
-        title: '思维图管理',
+        title: '投资策略管理',
         api: strategyList,
         rowKey: 'id',
         columns,
@@ -102,9 +97,18 @@
 
       // 删除
       function handleDelete(record: Recordable) {
-        strategyDel({ id: record.id }).then(() => {
-          createMessage.success(`删除成功`);
-          reload();
+        Modal.confirm({
+          title: '提示',
+          icon: createVNode(ExclamationCircleOutlined),
+          content: '你将删除当前投资策略信息，你还要继续吗？',
+          okText: '继续',
+          cancelText: '取消',
+          onOk() {
+            strategyDel({ id: record.id }).then(() => {
+              createMessage.success(`删除成功`);
+              reload();
+            });
+          },
         });
       }
 

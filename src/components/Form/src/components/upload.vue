@@ -40,6 +40,11 @@
         v-else-if="name == 'file'"
       ></iframe>
     </a-modal>
+    <div
+      style="margin-left: -60px"
+      v-if="name == 'image' && !multiple && list.length && list[0].response"
+      ><span style="padding-right: 5px">图片地址</span>{{ list[0].response.data }}</div
+    >
   </div>
 </template>
 <script lang="ts">

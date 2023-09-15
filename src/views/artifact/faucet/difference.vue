@@ -20,14 +20,7 @@
               icon: 'ant-design:delete-outlined',
               color: 'error',
               tooltip: '删除',
-              popConfirm: {
-                title: '是否确认删除',
-                placement: 'left',
-                confirm: handleDelete.bind(null, record),
-              },
-              ifShow: () => {
-                return record.crowdFundingStatus != 0;
-              },
+              onClick: handleDelete.bind(null, record),
             },
           ]"
         />
@@ -108,9 +101,18 @@
 
       // 删除
       function handleDelete(record: Recordable) {
-        faucetDifferencesDel({ ids: [record.id] }).then(() => {
-          createMessage.success(`删除成功`);
-          reload();
+        Modal.confirm({
+          title: '提示',
+          icon: createVNode(ExclamationCircleOutlined),
+          content: '你将删除当前板块信息，你还要继续吗？',
+          okText: '继续',
+          cancelText: '取消',
+          onOk() {
+            faucetDifferencesDel({ ids: [record.id] }).then(() => {
+              createMessage.success(`删除成功`);
+              reload();
+            });
+          },
         });
       }
 
@@ -120,14 +122,14 @@
         if (list.length == 0) {
           createMessage.warning('请选择数据');
         } else {
+          let ids = list.map((item) => item.id);
           Modal.confirm({
             title: '提示',
             icon: createVNode(ExclamationCircleOutlined),
-            content: '确定删除吗？',
-            okText: '确认',
+            content: '你将删除' + ids.length + '条板块信息，你还要继续吗？',
+            okText: '继续',
             cancelText: '取消',
             onOk() {
-              let ids = list.map((item) => item.id);
               faucetDifferencesDel(ids).then(() => {
                 createMessage.success(`删除成功`);
                 reload();

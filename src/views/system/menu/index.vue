@@ -9,16 +9,14 @@
           :actions="[
             {
               icon: 'clarity:note-edit-line',
+              tooltip: '编辑',
               onClick: handleEdit.bind(null, record),
             },
             {
               icon: 'ant-design:delete-outlined',
               color: 'error',
-              popConfirm: {
-                title: '是否确认删除',
-                placement: 'left',
-                confirm: handleDelete.bind(null, record),
-              },
+              tooltip: '删除',
+              onClick: handleDelete.bind(null, record),
             },
           ]"
         />
@@ -28,7 +26,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, nextTick } from 'vue';
+  import { defineComponent, nextTick, createVNode } from 'vue';
 
   import { useMessage } from '/@/hooks/web/useMessage';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
@@ -38,6 +36,8 @@
   // 引入二次封装的抽屉
   import MenuDrawer from './MenuDrawer.vue';
   import { columns, searchFormSchema } from './menu.data';
+  import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+  import { Modal } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'MenuManagement',
@@ -53,7 +53,7 @@
         formConfig: {
           // label宽度
           labelWidth: 80,
-          
+
           schemas: searchFormSchema,
         },
         isTreeTable: true,
@@ -92,9 +92,18 @@
       }
 
       function handleDelete(record: Recordable) {
-        MenuDel(record.id).then(() => {
-          createMessage.success(`删除成功`);
-          reload();
+        Modal.confirm({
+          title: '提示',
+          icon: createVNode(ExclamationCircleOutlined),
+          content: '你将删除当前菜单信息，你还要继续吗？',
+          okText: '继续',
+          cancelText: '取消',
+          onOk() {
+            MenuDel(record.id).then(() => {
+              createMessage.success(`删除成功`);
+              reload();
+            });
+          },
         });
       }
 

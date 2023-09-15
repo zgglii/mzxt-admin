@@ -14,21 +14,10 @@
               onClick: handleEdit.bind(null, record),
             },
             {
-              icon: 'ant-design:barcode-outlined',
-              tooltip: '生成推荐码',
-              onClick: handleRamCode.bind(null, record),
-              ifShow: () => {
-                return !record.mineCode;
-              },
-            },
-            {
               icon: 'ant-design:delete-outlined',
+              color: 'error',
               tooltip: '删除',
-              popConfirm: {
-                title: '是否确认删除',
-                placement: 'left',
-                confirm: handleDelete.bind(null, record),
-              },
+              onClick: handleDelete.bind(null, record),
             },
           ]"
         />
@@ -43,7 +32,7 @@
   };
 </script>
 <script lang="ts" setup>
-  import { reactive } from 'vue';
+  import { reactive, createVNode } from 'vue';
   import { Image } from 'ant-design-vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { useMessage } from '/@/hooks/web/useMessage';
@@ -51,6 +40,8 @@
   // 引入原装的抽屉
   import { useDrawer } from '/@/components/Drawer';
   import MenuDrawer from './MenuDrawer.vue';
+  import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+  import { Modal } from 'ant-design-vue';
 
   import { userList, ramCode, delUser } from '/@/api/usersys/contents';
   import { columns, searchFormSchema } from './data';
@@ -69,11 +60,11 @@
     beforeFetch: (value): any => {
       let obj = value;
       value = {
-        mobile:value.mobile,
+        mobile: value.mobile,
         current: value.current,
         size: value.size,
-        startTime:'',
-        endTime:''
+        startTime: '',
+        endTime: '',
       };
       if (obj.termDate) {
         value.startTime = obj.termDate[0];
@@ -114,17 +105,21 @@
       isUpdate: true,
     });
   }
-  // function handleRamCode(record: Recordable) {
-  //   ramCode({ id: record.id }).then((res) => {
-  //     record.mineCode = res.mineCode;
-  //     createMessage.success('操作成功');
-  //   });
-  // }
+
   // Del Btn
   function handleDelete(record: Recordable): void {
-    delUser({ id: record.id }).then(() => {
-      createMessage.success(`删除成功`);
-      reload();
+    Modal.confirm({
+      title: '提示',
+      icon: createVNode(ExclamationCircleOutlined),
+      content: '你将删除当前用户信息信息，你还要继续吗？',
+      okText: '继续',
+      cancelText: '取消',
+      onOk() {
+        delUser({ id: record.id }).then(() => {
+          createMessage.success(`删除成功`);
+          reload();
+        });
+      },
     });
   }
 </script>

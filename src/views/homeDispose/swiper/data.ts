@@ -1,114 +1,119 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { h } from 'vue';
+import { Switch } from 'ant-design-vue';
+import { useMessage } from '/@/hooks/web/useMessage';
+import { swiperEdit } from '/@/api/demo/home';
 
-// enum UsePlace {
-//   '首页',
-//   '跟我学',
-//   '调研纪要',
-//   '研究报告',
-//   '每日精选',
-// }
-const arrayList = [
-  { label: '首页', value: '1' },
-  { label: '跟我学', value: '2' },
-  { label: '调研纪要', value: '3' },
-  { label: '研究报告', value: '4' },
-  { label: '每日精选', value: '5' },
+const statusData = [
+  { label: '已启用', value: 1 },
+  { label: '已禁用', value: 2 },
 ];
+
 /**
  * @description tabel 显示字段
  */
 export const columns: BasicColumn[] = [
-  // {
-  //   title: '使用位置',
-  //   dataIndex: 'usePlace',
-  //   width: 120,
-  //   customRender: ({ record }) => {
-  //     return UsePlace[Number(record.usePlace) - 1];
-  //   },
-  // },
-  // {
-  //   title: '演示数据',
-  //   dataIndex: 'demoType',
-  //   width: 80,
-  //   slots: { customRender: 'demoType' },
-  // },
   {
-    title: '图片',
+    title: '图片地址',
     dataIndex: 'imgUrl',
-    width: 220,
-    slots: { customRender: 'linkUrl' },
   },
-
   {
-    title: '添加时间',
-    dataIndex: 'createTime',
-    width: 220,
-    // slots: { customRender: 'linkUrl' },
+    title: '图片预览',
+    dataIndex: 'imgUrl',
+    slots: { customRender: 'imgUrlTpl' },
   },
-];
-
-/**
- * @description 搜索表单架构
- */
-export const searchFormSchema: FormSchema[] = [
   {
-    field: 'usePlace',
-    label: '使用位置',
-    component: 'Select',
-    componentProps: {
-      options: arrayList,
+    title: '跳转地址',
+    dataIndex: 'link',
+  },
+  {
+    title: '排序',
+    dataIndex: 'sort',
+    width: 100,
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    width: 120,
+    customRender: ({ record }) => {
+      if (!Reflect.has(record, 'pendingStatus')) {
+        record.pendingStatus = false;
+      }
+      return h(Switch, {
+        checked: record.status === statusData[0].value,
+        checkedChildren: statusData[0].label,
+        unCheckedChildren: statusData[1].label,
+        loading: record.pendingStatus,
+        onChange(checked: boolean) {
+          record.pendingStatus = true;
+          const newStatus = checked ? statusData[0].value : statusData[1].value;
+          const { createMessage } = useMessage();
+          swiperEdit({
+            id: record.id,
+            status: newStatus,
+          })
+            .then(() => {
+              record.status = newStatus;
+              createMessage.success(`操作成功`);
+            })
+            .catch(() => {})
+            .finally(() => {
+              record.pendingStatus = false;
+            });
+        },
+      });
     },
-    colProps: { span: 6 },
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'createTime',
   },
 ];
+
 /**
  * @description 修改或添加轮播图
  */
 export const editFormSchema: FormSchema[] = [
-  // {
-  //   field: 'area',
-  //   label: '使用位置',
-  //   component: 'Select',
-  //   componentProps: {
-  //     options: arrayList,
-  //   },
-  //   required: true,
-  // },
-
-  // {
-  //   field: 'imgUrl',
-  //   label: 'Url地址',
-  //   component: 'Input',
-  //   componentProps: {
-  //     options: arrayList,
-  //   },
-  //   required: true,
-  // },
-
-  // {
-  //   field: 'demoType',
-  //   label: '数据类型',
-  //   component: 'Select',
-  //   componentProps: {
-  //     options: [
-  //       { label: '正常数据', value: '0' },
-  //       { label: '演示数据', value: '1' },
-  //     ],
-  //   },
-  //   colProps: { span: 13 },
-  //   defaultValue: '0',
-  // },
   {
     label: '上传图片',
     field: 'imgUrl',
     component: 'FastUpload',
     componentProps: () => {
       return {
-        imgSizeTips: '图片尺寸建议：100*100',
+        imgSizeTips: '图片尺寸建议：750*280',
       };
     },
     defaultValue: '',
     required: true,
+  },
+  {
+    label: '跳转地址',
+    field: 'link',
+    component: 'Input',
+    helpMessage: ['仅信任域名可访问'],
+  },
+  {
+    label: '排序',
+    field: 'sort',
+    component: 'InputNumber',
+    componentProps: {
+      min: 0,
+      max: 1000,
+      precision: 0,
+    },
+    defaultValue: 0,
+  },
+  {
+    field: 'status',
+    label: '状态',
+    component: 'Switch',
+    componentProps: {
+      checkedChildren: statusData[0].label,
+      unCheckedChildren: statusData[1].label,
+      checkedValue: statusData[0].value,
+      unCheckedValue: statusData[1].value,
+    },
+    defaultValue: statusData[0].value,
   },
 ];

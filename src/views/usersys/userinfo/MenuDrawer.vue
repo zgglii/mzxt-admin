@@ -13,7 +13,7 @@
 <script lang="ts">
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { upImageFormSchema } from './data.ts';
+  import { upImageFormSchema } from './data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
 
   import { userLevelEdit } from '/@/api/usersys/contents';
@@ -26,7 +26,7 @@
       const isUpdate = ref(true);
       let menuId = 0;
 
-      const [registerForm, { resetFields, setFieldsValue, updateSchema, validate }] = useForm({
+      const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
         labelWidth: 100,
         schemas: upImageFormSchema,
         showActionButtonGroup: false,

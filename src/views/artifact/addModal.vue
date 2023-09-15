@@ -45,7 +45,7 @@
           setFieldsValue(data2);
         }
       });
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增思维图' : '编辑思维图'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增投资策略' : '编辑投资策略'));
 
       async function handleSubmit() {
         try {
