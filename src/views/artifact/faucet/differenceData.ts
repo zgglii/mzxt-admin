@@ -6,6 +6,11 @@ import { FormSchema } from '/@/components/Table';
  */
 export const columns: BasicColumn[] = [
   {
+    title: '导入时间',
+    dataIndex: 'createTime',
+    width: 170,
+  },
+  {
     title: '数据日期',
     dataIndex: 'onDate',
   },
@@ -29,17 +34,18 @@ export const columns: BasicColumn[] = [
     title: '强度值',
     dataIndex: 'strength',
   },
-  {
-    title: '导入时间',
-    dataIndex: 'createTime',
-    width: 170,
-  },
 ];
 
 /**
  * @description 搜索表单架构
  */
 export const searchFormSchema: FormSchema[] = [
+  {
+    field: 'onDate',
+    label: '数据日期',
+    component: 'RangePicker',
+    colProps: { span: 8 },
+  },
   {
     field: 'code',
     label: '代码',
@@ -51,12 +57,6 @@ export const searchFormSchema: FormSchema[] = [
     label: '名称',
     component: 'Input',
     colProps: { span: 6 },
-  },
-  {
-    field: 'onDate',
-    label: '数据日期',
-    component: 'RangePicker',
-    colProps: { span: 8 },
   },
 ];
 /**

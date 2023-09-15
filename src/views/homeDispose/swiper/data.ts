@@ -6,8 +6,8 @@ import { useMessage } from '/@/hooks/web/useMessage';
 import { swiperEdit } from '/@/api/demo/home';
 
 const statusData = [
-  { label: '已启用', value: 1 },
-  { label: '已禁用', value: 2 },
+  { label: '启用', value: 1 },
+  { label: '禁用', value: 2 },
 ];
 
 /**

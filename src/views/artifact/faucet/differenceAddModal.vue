@@ -16,6 +16,7 @@
       </div>
       <span style="padding-left: 14px">文件：</span
       ><input type="file" @change="fileChange" accept=".xlsx" />
+      <p style="margin: 10px 0 0 55px; color: #999">支持扩展名：.xls .xlsx</p>
     </div>
   </BasicModal>
 </template>
@@ -71,7 +72,7 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增热点板块异动' : '编辑热点板块异动'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增超短异动' : '编辑超短异动'));
 
       const fileChange = (e) => {
         file = e.target.files[0];

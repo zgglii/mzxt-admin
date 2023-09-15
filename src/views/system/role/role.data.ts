@@ -26,8 +26,8 @@ export const columns: BasicColumn[] = [
       }
       return h(Switch, {
         checked: record.status === 1,
-        checkedChildren: '已启用',
-        unCheckedChildren: '已禁用',
+        checkedChildren: '启用',
+        unCheckedChildren: '禁用',
         loading: record.pendingStatus,
         onChange(checked: boolean) {
           record.pendingStatus = true;

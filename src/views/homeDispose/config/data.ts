@@ -12,7 +12,7 @@ const typeData = [
  */
 export const columns: BasicColumn[] = [
   {
-    title: '模块',
+    title: '标题',
     dataIndex: 'type',
     customRender: ({ record }) => {
       return typeData[typeData.findIndex((item) => item.value == record.type)]?.label;
@@ -34,7 +34,7 @@ export const columns: BasicColumn[] = [
 export const editFormSchema: FormSchema[] = [
   {
     field: 'type',
-    label: '模块',
+    label: '标题',
     component: 'Select',
     componentProps: {
       options: typeData,

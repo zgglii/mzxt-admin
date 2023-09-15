@@ -34,8 +34,8 @@ export const columns: BasicColumn[] = [
   //     }
   //     return h(Switch, {
   //       checked: record.disabled === true,
-  //       checkedChildren: '已启用',
-  //       unCheckedChildren: '已禁用',
+  //       checkedChildren: '启用',
+  //       unCheckedChildren: '禁用',
   //       loading: record.disabled,
   //       onChange(checked: boolean) {
   //         record.disabled = true;

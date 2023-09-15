@@ -2,15 +2,15 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
 const typeData = [
-  { label: '热点板块', value: 1 },
-  { label: '伯克希尔投资策略', value: 2 },
+  { label: '热点板块强度神器', value: 1 },
+  { label: '伯克希尔投资策略思维图', value: 2 },
 ];
 /**
  * @description tabel 显示字段
  */
 export const columns: BasicColumn[] = [
   {
-    title: '板块',
+    title: '神器名称',
     dataIndex: 'type',
     customRender: ({ record }) => {
       return typeData[typeData.findIndex((item) => item.value == record.type)]?.label;
@@ -48,7 +48,7 @@ export const columns: BasicColumn[] = [
 export const editFormSchema: FormSchema[] = [
   {
     field: 'type',
-    label: '板块',
+    label: '课程名称',
     component: 'Select',
     componentProps: {
       options: typeData,

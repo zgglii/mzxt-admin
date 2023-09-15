@@ -10,15 +10,20 @@ const typeData = [
   { label: '明知学堂', value: 2 },
 ];
 const statusData = [
-  { label: '已启用', value: 1 },
-  { label: '已禁用', value: 2 },
+  { label: '启用', value: 1 },
+  { label: '禁用', value: 2 },
 ];
 /**
  * @description tabel 显示字段
  */
 export const columns: BasicColumn[] = [
   {
-    title: '类型',
+    title: '创建时间',
+    dataIndex: 'createTime',
+    width: 200,
+  },
+  {
+    title: '消息类型',
     dataIndex: 'type',
     customRender: ({ record }) => {
       return typeData[typeData.findIndex((item) => item.value == record.type)]?.label;
@@ -26,15 +31,22 @@ export const columns: BasicColumn[] = [
     width: 130,
   },
   {
-    title: '封面',
+    title: '封面图片',
     dataIndex: 'imgUrl',
     width: 220,
     slots: { customRender: 'imgUrlTpl' },
   },
   {
-    title: '标题',
+    title: '消息标题',
     dataIndex: 'title',
     align: 'left',
+    slots: { customRender: 'textTpl' },
+  },
+  {
+    title: '消息内容',
+    dataIndex: 'content',
+    align: 'left',
+    slots: { customRender: 'textTpl' },
   },
   {
     title: '状态',
@@ -69,11 +81,6 @@ export const columns: BasicColumn[] = [
       });
     },
   },
-  {
-    title: '发布时间',
-    dataIndex: 'createTime',
-    width: 200,
-  },
 ];
 
 /**
@@ -81,8 +88,14 @@ export const columns: BasicColumn[] = [
  */
 export const searchFormSchema: FormSchema[] = [
   {
+    field: 'createTime',
+    label: '创建时间',
+    component: 'RangePicker',
+    colProps: { span: 8 },
+  },
+  {
     field: 'type',
-    label: '类型',
+    label: '消息类型',
     component: 'Select',
     componentProps: {
       options: typeData,
@@ -91,15 +104,9 @@ export const searchFormSchema: FormSchema[] = [
   },
   {
     field: 'title',
-    label: '标题',
+    label: '消息内容',
     component: 'Input',
     colProps: { span: 6 },
-  },
-  {
-    field: 'createTime',
-    label: '发布时间',
-    component: 'RangePicker',
-    colProps: { span: 8 },
   },
 ];
 /**
@@ -108,7 +115,7 @@ export const searchFormSchema: FormSchema[] = [
 export const editFormSchema: FormSchema[] = [
   {
     field: 'type',
-    label: '类型',
+    label: '消息类型',
     component: 'Select',
     componentProps: {
       options: typeData,
@@ -117,12 +124,12 @@ export const editFormSchema: FormSchema[] = [
   },
   {
     field: 'title',
-    label: '标题',
+    label: '消息标题',
     component: 'Input',
     required: true,
   },
   {
-    label: '封面',
+    label: '封面图片',
     field: 'imgUrl',
     component: 'FastUpload',
     componentProps: () => {
@@ -146,7 +153,7 @@ export const editFormSchema: FormSchema[] = [
     required: true,
   },
   {
-    label: '内容',
+    label: '消息内容',
     field: 'content',
     component: 'InputTextArea',
     required: true,

@@ -104,7 +104,7 @@
         Modal.confirm({
           title: '提示',
           icon: createVNode(ExclamationCircleOutlined),
-          content: '你将删除当前板块信息，你还要继续吗？',
+          content: '你将删除当前热点板块信息，你还要继续吗？',
           okText: '继续',
           cancelText: '取消',
           onOk() {
@@ -126,7 +126,7 @@
           Modal.confirm({
             title: '提示',
             icon: createVNode(ExclamationCircleOutlined),
-            content: '你将删除' + ids.length + '条板块信息，你还要继续吗？',
+            content: '你将删除' + ids.length + '条热点板块信息，你还要继续吗？',
             okText: '继续',
             cancelText: '取消',
             onOk() {

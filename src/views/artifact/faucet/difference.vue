@@ -54,7 +54,7 @@
       const searchInfo = reactive<Recordable>({});
       // 初始化table
       const [registerTable, { reload, getSelectRows }] = useTable({
-        title: '热点板块异动管理',
+        title: '超短异动管理',
         api: faucetDifferencesList,
         rowKey: 'id',
         columns,
@@ -104,7 +104,7 @@
         Modal.confirm({
           title: '提示',
           icon: createVNode(ExclamationCircleOutlined),
-          content: '你将删除当前板块信息，你还要继续吗？',
+          content: '你将删除当前超短异动信息，你还要继续吗？',
           okText: '继续',
           cancelText: '取消',
           onOk() {
@@ -126,7 +126,7 @@
           Modal.confirm({
             title: '提示',
             icon: createVNode(ExclamationCircleOutlined),
-            content: '你将删除' + ids.length + '条板块信息，你还要继续吗？',
+            content: '你将删除' + ids.length + '条超短异动信息，你还要继续吗？',
             okText: '继续',
             cancelText: '取消',
             onOk() {

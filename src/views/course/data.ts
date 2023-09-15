@@ -6,26 +6,31 @@ import { useMessage } from '/@/hooks/web/useMessage';
 import { courseEdit } from '/@/api/demo/home';
 
 const statusData = [
-  { label: '已启用', value: 1 },
-  { label: '已禁用', value: 2 },
+  { label: '启用', value: 1 },
+  { label: '禁用', value: 2 },
 ];
 /**
  * @description tabel 显示字段
  */
 export const columns: BasicColumn[] = [
   {
-    title: '封面',
+    title: '创建时间',
+    dataIndex: 'createTime',
+    width: 200,
+  },
+  {
+    title: '课程名称',
+    dataIndex: 'title',
+    align: 'left',
+  },
+  {
+    title: '封面图片',
     dataIndex: 'imgUrl',
     width: 220,
     slots: { customRender: 'imgUrlTpl' },
   },
   {
-    title: '标题',
-    dataIndex: 'title',
-    align: 'left',
-  },
-  {
-    title: '外链小程序',
+    title: '外链AppID',
     dataIndex: 'externalAppId',
     align: 'left',
     width: 200,
@@ -69,35 +74,30 @@ export const columns: BasicColumn[] = [
       });
     },
   },
-  {
-    title: '发布时间',
-    dataIndex: 'createTime',
-    width: 200,
-  },
 ];
 
 /**
  * @description 搜索表单架构
  */
 export const searchFormSchema: FormSchema[] = [
-  {
-    field: 'title',
-    label: '标题',
-    component: 'Input',
-    colProps: { span: 6 },
-  },
-  {
-    field: 'externalAppId',
-    label: '外链小程序',
-    component: 'Input',
-    colProps: { span: 6 },
-  },
-  {
-    field: 'createTime',
-    label: '发布时间',
-    component: 'RangePicker',
-    colProps: { span: 8 },
-  },
+  // {
+  //   field: 'title',
+  //   label: '标题',
+  //   component: 'Input',
+  //   colProps: { span: 6 },
+  // },
+  // {
+  //   field: 'externalAppId',
+  //   label: '外链小程序',
+  //   component: 'Input',
+  //   colProps: { span: 6 },
+  // },
+  // {
+  //   field: 'createTime',
+  //   label: '创建时间',
+  //   component: 'RangePicker',
+  //   colProps: { span: 8 },
+  // },
 ];
 /**
  * @description 修改或添加轮播图
@@ -105,12 +105,12 @@ export const searchFormSchema: FormSchema[] = [
 export const editFormSchema: FormSchema[] = [
   {
     field: 'title',
-    label: '标题',
+    label: '课程名称',
     component: 'Input',
     required: true,
   },
   {
-    label: '封面',
+    label: '封面图片',
     field: 'imgUrl',
     component: 'FastUpload',
     componentProps: () => {
@@ -119,6 +119,18 @@ export const editFormSchema: FormSchema[] = [
       };
     },
     defaultValue: '',
+    required: true,
+  },
+  {
+    field: 'externalAppId',
+    label: '外链小程序ID',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'linkAddress',
+    label: '跳转地址',
+    component: 'Input',
     required: true,
   },
   {
@@ -132,18 +144,6 @@ export const editFormSchema: FormSchema[] = [
       unCheckedValue: statusData[1].value,
     },
     defaultValue: statusData[0].value,
-    required: true,
-  },
-  {
-    field: 'externalAppId',
-    label: '外链小程序ID',
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'linkAddress',
-    label: '跳转地址',
-    component: 'Input',
     required: true,
   },
 ];

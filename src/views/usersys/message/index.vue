@@ -4,6 +4,9 @@
       <template #toolbar>
         <a-button type="primary" @click="handleCreate">新增系统消息</a-button>
       </template>
+      <template #textTpl="{ text }">
+        {{ text }}
+      </template>
       <template #imgUrlTpl="{ record }">
         <Image :width="200" :src="record.imgUrl" />
       </template>
@@ -100,7 +103,7 @@
         Modal.confirm({
           title: '提示',
           icon: createVNode(ExclamationCircleOutlined),
-          content: '你将删除当前系统消息信息，你还要继续吗？',
+          content: '你将删除当前系统消息，你还要继续吗？',
           okText: '继续',
           cancelText: '取消',
           onOk() {

@@ -100,7 +100,7 @@
         Modal.confirm({
           title: '提示',
           icon: createVNode(ExclamationCircleOutlined),
-          content: '你将删除当前投资策略信息，你还要继续吗？',
+          content: '你将删除当前伯克希尔投资策略思维图，你还要继续吗？',
           okText: '继续',
           cancelText: '取消',
           onOk() {

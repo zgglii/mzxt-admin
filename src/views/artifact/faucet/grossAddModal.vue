@@ -9,6 +9,7 @@
     <BasicForm @register="registerForm" v-if="isUpdate" />
     <div style="padding: 50px 100px 0" v-if="!isUpdate">
       文件：<input type="file" @change="fileChange" accept=".xlsx" />
+      <p style="margin: 10px 0 0 40px; color: #999">支持扩展名：.xls .xlsx</p>
     </div>
   </BasicModal>
 </template>

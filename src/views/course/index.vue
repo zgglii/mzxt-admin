@@ -62,7 +62,7 @@
           schemas: searchFormSchema,
           autoSubmitOnEnter: true,
         },
-        useSearchForm: true,
+        useSearchForm: false,
         showTableSetting: false,
         showIndexColumn: false,
         bordered: true,
@@ -100,7 +100,7 @@
         Modal.confirm({
           title: '提示',
           icon: createVNode(ExclamationCircleOutlined),
-          content: '你将删除当前系统课程信息，你还要继续吗？',
+          content: '你将删除当前系统课程，你还要继续吗？',
           okText: '继续',
           cancelText: '取消',
           onOk() {
