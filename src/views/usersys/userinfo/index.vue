@@ -31,7 +31,7 @@
         showTableSetting: false,
         showIndexColumn: false,
         bordered: true,
-        handleSearchInfoFn: (obj) => {
+        beforeFetch: (obj) => {
           if (obj.startTime && obj.endTime) {
             obj.startTime = obj.startTime.slice(0, 10) + ' 00:00:00';
             obj.endTime = obj.endTime.slice(0, 10) + ' 23:59:59';

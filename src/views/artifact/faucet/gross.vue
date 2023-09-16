@@ -73,7 +73,7 @@
           dataIndex: 'action',
           slots: { customRender: 'action' },
         },
-        handleSearchInfoFn: (obj) => {
+        beforeFetch: (obj) => {
           if (obj.startTime && obj.endTime) {
             obj.startTime = obj.startTime.slice(0, 10) + ' 00:00:00';
             obj.endTime = obj.endTime.slice(0, 10) + ' 23:59:59';
@@ -114,7 +114,7 @@
           okText: '继续',
           cancelText: '取消',
           onOk() {
-            faucetGrossDel({ ids: [record.id] }).then(() => {
+            faucetGrossDel([record.id]).then(() => {
               createMessage.success(`删除成功`);
               reload();
             });
